@@ -1,0 +1,31 @@
+Display :
+N_p^k -> N_p
+f : x_1, x_2, ..., x_k -> ...
+
+an array of coefficients
+-> the dimensionality of the array corresponds to the arity (number of arguments) of the multipol
+
+n size of fields
+k number of arguments
+r degree of polynomial
+
+-> k dimension matrix
+
+
+1 + x + xy + y²
+
+   1  x¹ x²
+1  1  1  0 
+y¹ 0  1  0 
+y² 1  0  0 
+
+
+
+
+   1 x¹ x² x³ x⁴ x⁵
+1  1 1  0  0  0  0
+y¹ 0 1  0  0  0  0
+y² 1 0  0  0  0  0
+y³ 0 0  0  0  0  0
+y⁴ 0 0  0  0  0  0
+y⁵ 0 0  0  0  0  0

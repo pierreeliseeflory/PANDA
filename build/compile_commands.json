@@ -1,0 +1,7 @@
+[
+{
+  "directory": "/home/pe/Panda/build/src",
+  "command": "/bin/g++-9    -g   -Wall -Wextra -pedantic -Werror -std=c++11 -march=native -o CMakeFiles/polynomial.dir/polynomial.cpp.o -c /home/pe/Panda/src/polynomial.cpp",
+  "file": "/home/pe/Panda/src/polynomial.cpp"
+}
+]
