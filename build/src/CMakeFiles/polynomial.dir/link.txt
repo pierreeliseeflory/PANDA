@@ -1,1 +1,0 @@
-/bin/g++-9  -g   CMakeFiles/polynomial.dir/polynomial.cpp.o  -o polynomial  -Wl,-rpath,/usr/local/lib /usr/local/lib/libntl.a /usr/local/lib/libgmp.so -lm -lpthread 
