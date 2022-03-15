@@ -1,0 +1,10 @@
+package(default_visibility = ["//visibility:public"])
+
+test_suite(
+    name = "build_tests",
+    tags = ["manual"],
+    tests = [
+        "//third_party/GMP:gmp_build_test",
+        "//third_party/NTL:ntl_build_test",
+    ],
+)

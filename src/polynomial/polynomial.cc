@@ -9,7 +9,7 @@ int main(int argc, char *argv[])
 
     NTL::ZZ p((long)17);
     NTL::ZZ_p::init(p);
-    NTL::ZZ_p k((long)3);
+    NTL::ZZ_p k((long)19);
 
     std::cout << k << std::endl;
 

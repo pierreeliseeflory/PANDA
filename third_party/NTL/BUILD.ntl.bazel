@@ -1,0 +1,25 @@
+load("@rules_foreign_cc//foreign_cc:defs.bzl", "configure_make")
+
+filegroup(
+    name = "all_srcs",
+    srcs = glob(
+        include = ["**"],
+        exclude = ["*.bazel"],
+    ),
+)
+
+configure_make(
+    name = "ntl",
+    args = ["-C ntl-11.5.1/src"],
+    configure_command = "ntl-11.5.1/src/configure",
+    configure_in_place = True,
+    configure_options = [
+        "GMP_PREFIX=$EXT_BUILD_DEPS/gmp",
+    ],
+    lib_source = ":all_srcs",
+    out_static_libs = ["libntl.a"],
+    deps = [
+        "@GMP_lib//:gmp",
+    ],
+    visibility = ["//visibility:public"],
+)

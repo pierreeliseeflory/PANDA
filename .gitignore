@@ -1,59 +1,23 @@
-# Created by https://www.toptal.com/developers/gitignore/api/visualstudiocode,c++,cmake
-# Edit at https://www.toptal.com/developers/gitignore?templates=visualstudiocode,c++,cmake
+# Created by https://www.toptal.com/developers/gitignore/api/visualstudiocode,bazel
+# Edit at https://www.toptal.com/developers/gitignore?templates=visualstudiocode,bazel
 
-### C++ ###
-# Prerequisites
-*.d
+### Bazel ###
+# gitignore template for Bazel build system
+# website: https://bazel.build/
 
-# Compiled Object files
-*.slo
-*.lo
-*.o
-*.obj
+# Ignore all bazel-* symlinks. There is no full list since this can change
+# based on the name of the directory bazel is cloned into.
+/bazel-*
 
-# Precompiled Headers
-*.gch
-*.pch
-
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
-
-# Fortran module files
-*.mod
-*.smod
-
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
-
-# Executables
-*.exe
-*.out
-*.app
-
-### CMake ###
-CMakeLists.txt.user
-CMakeCache.txt
-CMakeFiles
-CMakeScripts
-Testing
-Makefile
-cmake_install.cmake
-install_manifest.txt
-compile_commands.json
-CTestTestfile.cmake
-_deps
-
-### CMake Patch ###
-# External projects
-*-prefix/
+# Directories for the Bazel IntelliJ plugin containing the generated
+# IntelliJ project files and plugin configuration. Seperate directories are
+# for the IntelliJ, Android Studio and CLion versions of the plugin.
+/.ijwb/
+/.aswb/
+/.clwb/
 
 ### VisualStudioCode ###
-.vscode/
+.vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
@@ -73,4 +37,4 @@ _deps
 
 # Support for Project snippet scope
 
-# End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,c++,cmake
+# End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,bazel

@@ -1,0 +1,20 @@
+workspace(name = "PANDA")
+
+load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+
+http_archive(
+    name = "rules_foreign_cc",
+    sha256 = "498dacf91c46453b53ddbf1de82e1f276651246fafe3fc81c1872910ce77540f",
+    strip_prefix = "rules_foreign_cc-main",
+    # Pull a recent version instead of a release because of the configure_in_place attribute
+    url = "https://github.com/bazelbuild/rules_foreign_cc/archive/refs/heads/main.zip",
+)
+
+load("@rules_foreign_cc//foreign_cc:repositories.bzl", "rules_foreign_cc_dependencies")
+
+rules_foreign_cc_dependencies(register_preinstalled_tools = False)
+
+load("//third_party:repositories.bzl", "load_repositories")
+
+# Load all external projects included in third_party
+load_repositories()
