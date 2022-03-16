@@ -1,6 +1,9 @@
-cc_binary(
+cc_library(
     name = "polynomial",
-    srcs = ["polynomial.cc"],
+    srcs = [
+        "polynomial.cc",
+        "polynomial.hpp",
+    ],
     copts = [
         "-std=c++11",
     ],
@@ -8,5 +11,27 @@ cc_binary(
     deps = [
         "@GMP_lib//:gmp",
         "@NTL_lib//:ntl",
+    ],
+)
+
+cc_test(
+    name = "polynomial_test",
+    size = "small",
+    srcs = [
+        "polynomial_test.cc",
+    ],
+    deps = [
+        ":polynomial",
+        "@com_google_googletest//:gtest_main",
+    ],
+)
+
+cc_binary(
+    name = "main",
+    srcs = [
+        "main.cc",
+    ],
+    deps = [
+        "polynomial",
     ],
 )
