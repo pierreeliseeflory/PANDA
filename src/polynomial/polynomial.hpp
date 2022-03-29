@@ -17,9 +17,15 @@ public:
         NTL::ZZ p((long)order);
         NTL::ZZ_p::init(p);
     }
+    MultiVariatePolynomial(int arity, int degree, int order, std::vector<NTL::ZZ_p> values) : MultiVariatePolynomial(arity, degree, order)
+    {
+        if (values.size() != this->getMaxNbElements())
+            throw std::invalid_argument("Incorrect number of values provided");
+        coefficients = values;
+    }
     MultiVariatePolynomial() = delete;
 
-    int getArity()
+    int getArity() const
     {
         return this->arity;
     };
@@ -27,7 +33,7 @@ public:
     {
         this->arity = arity;
     };
-    int getDegree()
+    int getDegree() const
     {
         return this->degree;
     };
@@ -35,7 +41,7 @@ public:
     {
         this->degree = degree;
     };
-    int getOrder()
+    int getOrder() const
     {
         return this->order;
     };
@@ -44,14 +50,30 @@ public:
         this->order = order;
     };
 
-    int getMaxNbElements()
+    int getMaxNbElements() const
     {
         return this->maxNbElements;
-    }
+    };
 
-    void print();
+    void setElement(std::vector<int> monomial, NTL::ZZ_p value);
 
-    std::string to_string();
+    void setElement(int index, NTL::ZZ_p value);
+
+    NTL::ZZ_p getElement(std::vector<int> monomial) const;
+
+    NTL::ZZ_p getElement(int index) const;
+
+    void print() const;
+
+    std::string to_string() const;
+
+    MultiVariatePolynomial add(const MultiVariatePolynomial &other) const;
+    MultiVariatePolynomial operator+(const MultiVariatePolynomial &other) const;
+
+    MultiVariatePolynomial sub(const MultiVariatePolynomial &other) const;
+    MultiVariatePolynomial operator-(const MultiVariatePolynomial &other) const;
+
+    NTL::ZZ_p evaluate(std::vector<NTL::ZZ_p> point) const;
 
 private:
     int arity;

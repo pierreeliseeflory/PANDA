@@ -11,7 +11,7 @@ int main(int argc, char *argv[])
 
     NTL::ZZ p((long)17);
     NTL::ZZ_p::init(p);
-    NTL::ZZ_p k((long)6);
+    NTL::ZZ_p k(6);
 
     std::cout << k << std::endl;
     std::cout << k * 2 << std::endl;
@@ -20,15 +20,25 @@ int main(int argc, char *argv[])
 
     int arity = 3;
     int degree = 5;
-    int order = 2;
+    int order = 7;
 
     MultiVariatePolynomial poly(arity, degree, order);
+
+    NTL::ZZ_p value(5);
+    std::vector<int> monomial = {0, 3, 1};
+    poly.setElement(monomial, value);
 
     poly.print();
 
     std::cout << poly.to_string() << std::endl;
+    std::cout << poly.add(poly).to_string() << std::endl;
+    std::cout << (poly + poly).to_string() << std::endl;
+    std::cout << (poly - poly).to_string() << std::endl;
 
     std::cout << poly.getMaxNbElements() << std::endl;
+
+    std::vector<NTL::ZZ_p> point = {NTL::ZZ_p(1), NTL::ZZ_p(1), NTL::ZZ_p(4)};
+    std::cout << poly.evaluate(point) << std::endl;
 
     return 0;
 }
