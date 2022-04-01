@@ -18,14 +18,14 @@ int main(int argc, char *argv[])
     std::cout << k * 3 << std::endl;
     std::cout << k * 4 << std::endl;
 
-    int arity = 3;
-    int degree = 5;
-    int order = 7;
+    unsigned int arity = 3;
+    unsigned int degree = 5;
+    unsigned int order = 7;
 
     MultiVariatePolynomial poly(arity, degree, order);
 
     NTL::ZZ_p value(5);
-    std::vector<int> monomial = {0, 3, 1};
+    std::vector<unsigned int> monomial = {0, 3, 1};
     poly.setElement(monomial, value);
 
     poly.print();

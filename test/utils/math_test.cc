@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include "polynomial.hpp"
+#include "src/utils/math.hpp"
 
 TEST(BinomialTest, BasicAssertions)
 {

@@ -8,21 +8,11 @@ cc_library(
         "-std=c++11",
     ],
     linkopts = ["-lpthread"],
+    visibility = ["//visibility:public"],
     deps = [
+        "//src/utils:math",
         "@GMP_lib//:gmp",
         "@NTL_lib//:ntl",
-    ],
-)
-
-cc_test(
-    name = "polynomial_test",
-    size = "small",
-    srcs = [
-        "polynomial_test.cc",
-    ],
-    deps = [
-        ":polynomial",
-        "@com_google_googletest//:gtest_main",
     ],
 )
 

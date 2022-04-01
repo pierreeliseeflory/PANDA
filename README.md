@@ -6,8 +6,16 @@
 
 ## Usage
 
+### Run
+
 ```shell
 bazel run @PANDA//src/polynomial:polynomial
+```
+
+### Test
+
+```shell
+bazel test --test_output=all ...
 ```
 
 ## Locally Decodable Codes - Reed-Muller
