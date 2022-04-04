@@ -28,13 +28,9 @@ std::string MultiVariatePolynomial::to_string() const
                 ss << "+ ";
             unsigned int temp = i;
             ss << this->coefficients.at(i) << " * (";
-            for (int variable = this->getArity() - 1; variable >= 0; variable--)
-            {
-
-                int factor = binomialCoefficient(this->degree + variable, this->degree);
-                ss << "x_" << variable + 1 << "^" << temp / factor << " ";
-                temp %= factor;
-            }
+            std::vector<unsigned int> monomial = indexToMonomial(this->degree, this->arity, i);
+            for (int variable = 0; variable < this->arity; variable++)
+                ss << "x_" << variable + 1 << "^" << monomial.at(variable) << " ";
             ss << ") ";
         }
     }
@@ -53,25 +49,22 @@ void MultiVariatePolynomial::setElement(unsigned int index, NTL::ZZ_p value)
 
 void MultiVariatePolynomial::setElement(std::vector<unsigned int> monomial, NTL::ZZ_p value)
 {
-    if (monomial.size() != this->arity)
-    {
-        throw std::invalid_argument("The monomial set must have the same arity as th epolynomial");
-    }
-    unsigned int index = 0;
-    for (unsigned int variable = 0; variable < monomial.size(); ++variable)
-    {
-        if (monomial.at(variable) > this->degree)
-            throw std::invalid_argument("Individual variable powers must be lower than that of the polynomial");
-        index += monomial.at(variable) * binomialCoefficient(this->degree + variable, this->degree);
-    }
-    setElement(index, value);
+    setElement(monomialToIndex(this->degree, this->arity, monomial), value);
 };
 
 NTL::ZZ_p MultiVariatePolynomial::getElement(unsigned int index) const
 {
     if (index >= maxNbElements || index < 0)
         throw std::invalid_argument("Incorrect index");
+    std::cout << index << std::endl;
+    std::cout << coefficients.at(0) << std::endl;
+    std::cout << coefficients.at(index) << std::endl;
     return coefficients.at(index);
+}
+
+NTL::ZZ_p MultiVariatePolynomial::getElement(std::vector<unsigned int> monomial) const
+{
+    getElement(monomialToIndex(this->degree, this->arity, monomial));
 }
 
 MultiVariatePolynomial MultiVariatePolynomial::add(const MultiVariatePolynomial &other) const

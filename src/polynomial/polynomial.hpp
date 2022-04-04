@@ -9,6 +9,7 @@
 #include "src/utils/math.hpp"
 
 // TODO : REFACTOR -> use recursive polynomials
+// TODO : Templatize the class
 
 class MultiVariatePolynomial
 {
