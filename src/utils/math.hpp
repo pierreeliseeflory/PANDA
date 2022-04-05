@@ -6,7 +6,7 @@
 
 int binomialCoefficient(int n, int k);
 
-int monomialToIndex(int degree, int arity, std::vector<unsigned int> values);
+int monomialToIndex(int degree, int arity, std::vector<unsigned int>& values);
 
 std::vector<unsigned int> indexToMonomial(int degree, int arity, int index);
 

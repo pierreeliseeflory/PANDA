@@ -4,7 +4,7 @@
 
 #include "polynomial.hpp"
 
-int main(int argc, char *argv[])
+int main(int argc, char* argv[])
 {
     (void)argc;
     (void)argv;
@@ -25,7 +25,7 @@ int main(int argc, char *argv[])
     MultiVariatePolynomial poly(arity, degree, order);
 
     NTL::ZZ_p value(5);
-    std::vector<unsigned int> monomial = {0, 3, 1};
+    std::vector<unsigned int> monomial = { 0, 3, 1 };
     poly.setElement(monomial, value);
 
     poly.print();
@@ -37,7 +37,7 @@ int main(int argc, char *argv[])
 
     std::cout << poly.getMaxNbElements() << std::endl;
 
-    std::vector<NTL::ZZ_p> point = {NTL::ZZ_p(1), NTL::ZZ_p(1), NTL::ZZ_p(4)};
+    std::vector<NTL::ZZ_p> point = { NTL::ZZ_p(1), NTL::ZZ_p(1), NTL::ZZ_p(4) };
     std::cout << poly.evaluate(point) << std::endl;
 
     return 0;
