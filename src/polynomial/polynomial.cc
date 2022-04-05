@@ -47,7 +47,7 @@ void MultiVariatePolynomial::setElement(unsigned int index, NTL::ZZ_p value)
     coefficients.at(index) = value;
 };
 
-void MultiVariatePolynomial::setElement(std::vector<unsigned int> monomial, NTL::ZZ_p value)
+void MultiVariatePolynomial::setElement(std::vector<unsigned int>& monomial, NTL::ZZ_p value)
 {
     setElement(monomialToIndex(this->degree, this->arity, monomial), value);
 };
@@ -56,18 +56,15 @@ NTL::ZZ_p MultiVariatePolynomial::getElement(unsigned int index) const
 {
     if (index >= maxNbElements || index < 0)
         throw std::invalid_argument("Incorrect index");
-    std::cout << index << std::endl;
-    std::cout << coefficients.at(0) << std::endl;
-    std::cout << coefficients.at(index) << std::endl;
     return coefficients.at(index);
 }
 
-NTL::ZZ_p MultiVariatePolynomial::getElement(std::vector<unsigned int> monomial) const
+NTL::ZZ_p MultiVariatePolynomial::getElement(std::vector<unsigned int>& monomial) const
 {
-    getElement(monomialToIndex(this->degree, this->arity, monomial));
+    return getElement(monomialToIndex(this->degree, this->arity, monomial));
 }
 
-MultiVariatePolynomial MultiVariatePolynomial::add(const MultiVariatePolynomial &other) const
+MultiVariatePolynomial MultiVariatePolynomial::add(const MultiVariatePolynomial& other) const
 {
     if (arity != other.getArity())
         throw std::invalid_argument("Can't add polynomial with different arity");
@@ -83,12 +80,12 @@ MultiVariatePolynomial MultiVariatePolynomial::add(const MultiVariatePolynomial 
     return MultiVariatePolynomial(arity, degree, order, new_values);
 }
 
-MultiVariatePolynomial MultiVariatePolynomial::operator+(const MultiVariatePolynomial &other) const
+MultiVariatePolynomial MultiVariatePolynomial::operator+(const MultiVariatePolynomial& other) const
 {
     return this->add(other);
 }
 
-MultiVariatePolynomial MultiVariatePolynomial::sub(const MultiVariatePolynomial &other) const
+MultiVariatePolynomial MultiVariatePolynomial::sub(const MultiVariatePolynomial& other) const
 {
     if (arity != other.getArity())
         throw std::invalid_argument("Can't substract polynomial with different arity");
@@ -104,33 +101,29 @@ MultiVariatePolynomial MultiVariatePolynomial::sub(const MultiVariatePolynomial 
     return MultiVariatePolynomial(arity, degree, order, new_values);
 }
 
-MultiVariatePolynomial MultiVariatePolynomial::operator-(const MultiVariatePolynomial &other) const
+MultiVariatePolynomial MultiVariatePolynomial::operator-(const MultiVariatePolynomial& other) const
 {
     return this->sub(other);
 }
 
-NTL::ZZ_p MultiVariatePolynomial::evaluate(std::vector<NTL::ZZ_p> point) const
+NTL::ZZ_p MultiVariatePolynomial::evaluate(std::vector<NTL::ZZ_p>& point) const
 {
     if (point.size() != this->arity)
         throw std::invalid_argument("Can't evaluate polynomial on vector of incorrect size");
 
     NTL::ZZ_p result;
 
-    for (unsigned int monomial = 0; monomial < this->getMaxNbElements(); monomial++)
+    for (unsigned int index = 0; index < this->getMaxNbElements(); index++)
     {
-        if (this->coefficients.at(monomial) != 0)
+        if (this->coefficients.at(index) != 0)
         {
-            unsigned int temp = monomial;
-            NTL::ZZ_p temp_result(this->coefficients.at(monomial));
-            for (int variable = this->getArity() - 1; variable >= 0; variable--)
+            NTL::ZZ_p temp(this->coefficients.at(index));
+            std::vector<unsigned int> monomial = indexToMonomial(this->degree, this->arity, index);
+            for (int variable = 0; variable < this->getArity(); variable++)
             {
-                NTL::ZZ_p temp_temp_result;
-                unsigned int factor = binomialCoefficient(this->degree + variable, this->degree);
-                NTL::power(temp_temp_result, point.at(variable), (temp / factor));
-                temp_result *= temp_temp_result;
-                temp %= factor;
+                temp *= NTL::power(point.at(variable), monomial.at(variable));
             }
-            result += temp_result;
+            result += temp;
         }
     }
     return result;

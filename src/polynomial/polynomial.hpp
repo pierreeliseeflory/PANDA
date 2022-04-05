@@ -57,11 +57,11 @@ public:
         return this->maxNbElements;
     };
 
-    void setElement(std::vector<unsigned int> monomial, NTL::ZZ_p value);
+    void setElement(std::vector<unsigned int> &monomial, NTL::ZZ_p value);
 
     void setElement(unsigned int index, NTL::ZZ_p value);
 
-    NTL::ZZ_p getElement(std::vector<unsigned int> monomial) const;
+    NTL::ZZ_p getElement(std::vector<unsigned int> &monomial) const;
 
     NTL::ZZ_p getElement(unsigned int index) const;
 
@@ -75,7 +75,7 @@ public:
     MultiVariatePolynomial sub(const MultiVariatePolynomial &other) const;
     MultiVariatePolynomial operator-(const MultiVariatePolynomial &other) const;
 
-    NTL::ZZ_p evaluate(std::vector<NTL::ZZ_p> point) const;
+    NTL::ZZ_p evaluate(std::vector<NTL::ZZ_p> &point) const;
 
 private:
     unsigned int arity;
