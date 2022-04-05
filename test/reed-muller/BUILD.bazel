@@ -1,0 +1,11 @@
+cc_test(
+    name = "reed-muller_test",
+    size = "small",
+    srcs = [
+        "reed-muller_test.cc",
+    ],
+    deps = [
+        "//src/reed-muller",
+        "@com_google_googletest//:gtest_main",
+    ],
+)

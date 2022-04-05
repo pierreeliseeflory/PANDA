@@ -1,0 +1,18 @@
+cc_library(
+    name = "reed-muller",
+    srcs = [
+        "reed-muller.cc",
+        "reed-muller.hpp",
+    ],
+    copts = [
+        "-std=c++11",
+    ],
+    linkopts = ["-lpthread"],
+    visibility = ["//visibility:public"],
+    deps = [
+        "//src/polynomial",
+        "//src/utils:math",
+        "@GMP_lib//:gmp",
+        "@NTL_lib//:ntl",
+    ],
+)
