@@ -79,6 +79,8 @@ public:
 
     NTL::ZZ_p evaluate(std::vector<NTL::ZZ_p>& point) const;
 
+    static MultiVariatePolynomial interpolate(std::vector<std::vector<NTL::ZZ_p>>& known_values, int degree, int arity, int order);
+
 private:
     unsigned int arity;
     unsigned int degree;

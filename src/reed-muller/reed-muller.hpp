@@ -1,12 +1,16 @@
 #ifndef REED_MULLER_HPP
 #define REED_MULLER_HPP
 
+#include <algorithm>
+
 // #include "codeword.hpp"
 // #include "message.hpp"
 #include "src/polynomial/polynomial.hpp"
 #include "src/utils/math.hpp"
 
 typedef std::vector<NTL::ZZ_p> message;
+
+// struct message
 
 // should probably turn that into a namespace instead
 // class ReedMuller
@@ -54,6 +58,55 @@ namespace ReedMuller {
             points.push_back(poly.evaluate(point));
         }
         return points;
+    }
+
+    NTL::ZZ_p decode(std::vector<NTL::ZZ_p>& codeword, int q, int n, int d, std::vector<NTL::ZZ_p>& desired_point) {
+        NTL::ZZ_p::init((NTL::ZZ)q);
+
+        int sampling_number = d + 1;
+        std::vector<NTL::ZZ_p> random_point; // generate a random point over (F_q)^n
+        while (random_point.size() != sampling_number)
+            random_point.push_back(NTL::random_ZZ_p());
+        std::vector<NTL::ZZ_p> arguments; // generate random distincts coefficient
+        while (arguments.size() != sampling_number)
+        {
+            NTL::ZZ_p candidate = NTL::random_ZZ_p();
+            if (std::find(arguments.begin(), arguments.end(), candidate) == arguments.end() || candidate == 0)
+                arguments.push_back(candidate);
+        }
+
+        std::vector<std::vector<NTL::ZZ_p>> samples;
+        for (int i = 0; i < sampling_number; i++) {
+            std::vector<NTL::ZZ_p> image;
+            for (int variable = 0; variable < n; variable++)
+            {
+                image.push_back(desired_point.at(variable) + arguments.at(i) * random_point.at(variable));
+            }
+            samples.push_back(image);
+        }
+
+        // recover the unique univariate polynomial h, deg h ≤ d, such that h(arguments[i]) = samples[i]
+        // and evaluate it at 0
+
+        NTL::ZZ_p res(0);
+
+        for (int j = 0; j < sampling_number; ++j) {
+            int index = 0;
+            for (int variable = 0; variable < n; variable++)
+                index += NTL::conv<int>(samples.at(j).at(variable)) * squareAndMultiply(q, variable);
+
+            NTL::ZZ_p temp_res(codeword.at(index));
+
+            for (int i = 0; i < sampling_number; ++i) {
+                if (i != j) {
+                    std::cout << " j " << j << " i " << i << " " << arguments.at(j) - arguments.at(i) << std::endl;
+                    temp_res *= (-arguments.at(i)) / (arguments.at(j) - arguments.at(i));
+                }
+            }
+            res += temp_res;
+        }
+
+        return res; // return h(0)
     }
 }
 
