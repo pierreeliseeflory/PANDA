@@ -79,7 +79,7 @@ namespace ReedMuller
         }
 
         std::vector<std::vector<NTL::ZZ_p>> samples;
-        for (int i = 0; i < sampling_number; i++)
+        for (unsigned int i = 0; i < sampling_number; i++)
         {
             std::vector<NTL::ZZ_p> image;
             for (int variable = 0; variable < n; variable++)
@@ -94,7 +94,7 @@ namespace ReedMuller
 
         NTL::ZZ_p res(0);
 
-        for (int j = 0; j < sampling_number; ++j)
+        for (unsigned int j = 0; j < sampling_number; ++j)
         {
             int index = 0;
             for (int variable = 0; variable < n; variable++)
@@ -102,7 +102,7 @@ namespace ReedMuller
 
             NTL::ZZ_p temp_res(codeword.at(index));
 
-            for (int i = 0; i < sampling_number; ++i)
+            for (unsigned int i = 0; i < sampling_number; ++i)
             {
                 if (i != j)
                 {

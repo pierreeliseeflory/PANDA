@@ -35,7 +35,6 @@ std::string MultiVariatePolynomial::to_string() const
                 first = false;
             else
                 ss << "+ ";
-            unsigned int temp = i;
             ss << this->coefficients.at(i) << " * (";
             std::vector<unsigned int> monomial = indexToMonomial(this->degree, this->arity, i);
             for (unsigned int variable = 0; variable < this->arity; variable++)
@@ -128,7 +127,7 @@ NTL::ZZ_p MultiVariatePolynomial::evaluate(std::vector<NTL::ZZ_p> &point) const
         {
             NTL::ZZ_p temp(this->coefficients.at(index));
             std::vector<unsigned int> monomial = indexToMonomial(this->degree, this->arity, index);
-            for (int variable = 0; variable < this->getArity(); variable++)
+            for (unsigned int variable = 0; variable < this->getArity(); variable++)
             {
                 temp *= NTL::power(point.at(variable), monomial.at(variable));
             }
