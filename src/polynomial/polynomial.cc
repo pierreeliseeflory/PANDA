@@ -38,7 +38,7 @@ std::string MultiVariatePolynomial::to_string() const
             unsigned int temp = i;
             ss << this->coefficients.at(i) << " * (";
             std::vector<unsigned int> monomial = indexToMonomial(this->degree, this->arity, i);
-            for (int variable = 0; variable < this->arity; variable++)
+            for (unsigned int variable = 0; variable < this->arity; variable++)
                 ss << "x_" << variable + 1 << "^" << monomial.at(variable) << " ";
             ss << ") ";
         }

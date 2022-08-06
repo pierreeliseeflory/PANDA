@@ -39,8 +39,10 @@ typedef std::vector<NTL::ZZ_p> message;
 // {
 // }
 
-namespace ReedMuller {
-    std::vector<NTL::ZZ_p> encode(message& message, int q, int n, int d) {
+namespace ReedMuller
+{
+    std::vector<NTL::ZZ_p> encode(message &message, int q, int n, int d)
+    {
         MultiVariatePolynomial poly(n, d, q, message);
         std::vector<NTL::ZZ_p> points;
         std::vector<long> exponents;
@@ -60,10 +62,11 @@ namespace ReedMuller {
         return points;
     }
 
-    NTL::ZZ_p decode(std::vector<NTL::ZZ_p>& codeword, int q, int n, int d, std::vector<NTL::ZZ_p>& desired_point) {
+    NTL::ZZ_p decode(std::vector<NTL::ZZ_p> &codeword, int q, int n, int d, std::vector<NTL::ZZ_p> &desired_point)
+    {
         NTL::ZZ_p::init((NTL::ZZ)q);
 
-        int sampling_number = d + 1;
+        unsigned int sampling_number = d + 1;
         std::vector<NTL::ZZ_p> random_point; // generate a random point over (F_q)^n
         while (random_point.size() != sampling_number)
             random_point.push_back(NTL::random_ZZ_p());
@@ -71,12 +74,13 @@ namespace ReedMuller {
         while (arguments.size() != sampling_number)
         {
             NTL::ZZ_p candidate = NTL::random_ZZ_p();
-            if (std::find(arguments.begin(), arguments.end(), candidate) == arguments.end() || candidate == 0)
+            if (std::find(arguments.begin(), arguments.end(), candidate) == arguments.end())
                 arguments.push_back(candidate);
         }
 
         std::vector<std::vector<NTL::ZZ_p>> samples;
-        for (int i = 0; i < sampling_number; i++) {
+        for (int i = 0; i < sampling_number; i++)
+        {
             std::vector<NTL::ZZ_p> image;
             for (int variable = 0; variable < n; variable++)
             {
@@ -90,15 +94,18 @@ namespace ReedMuller {
 
         NTL::ZZ_p res(0);
 
-        for (int j = 0; j < sampling_number; ++j) {
+        for (int j = 0; j < sampling_number; ++j)
+        {
             int index = 0;
             for (int variable = 0; variable < n; variable++)
                 index += NTL::conv<int>(samples.at(j).at(variable)) * squareAndMultiply(q, variable);
 
             NTL::ZZ_p temp_res(codeword.at(index));
 
-            for (int i = 0; i < sampling_number; ++i) {
-                if (i != j) {
+            for (int i = 0; i < sampling_number; ++i)
+            {
+                if (i != j)
+                {
                     std::cout << " j " << j << " i " << i << " " << arguments.at(j) - arguments.at(i) << std::endl;
                     temp_res *= (-arguments.at(i)) / (arguments.at(j) - arguments.at(i));
                 }
@@ -109,6 +116,5 @@ namespace ReedMuller {
         return res; // return h(0)
     }
 }
-
 
 #endif /* REED_MULLER_HPP */
