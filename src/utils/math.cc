@@ -14,7 +14,7 @@ int binomialCoefficient(int n, int k)
     return binomialCoefficient(n - 1, k - 1) + binomialCoefficient(n - 1, k);
 }
 
-int monomialToIndex(int degree, int arity, std::vector<unsigned int>& monomial)
+int monomialToIndex(int degree, unsigned int arity, std::vector<unsigned int> &monomial)
 {
     if (monomial.size() != arity)
         throw std::invalid_argument("The monomial must have the same arity as the polynomial");

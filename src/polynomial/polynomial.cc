@@ -14,13 +14,13 @@ void MultiVariatePolynomial::print() const
 int MultiVariatePolynomial::getPowers(int index)
 {
     std::stringstream ss;
-    for (int var = 0; var < this->getArity(); var++)
+    for (unsigned int var = 0; var < this->getArity(); var++)
     {
     }
     return 1;
 }
 
-std::string MultiVariatePolynomial::to_string()
+std::string MultiVariatePolynomial::to_string() const
 {
     std::vector<NTL::ZZ_p> param(this->getArity());
 

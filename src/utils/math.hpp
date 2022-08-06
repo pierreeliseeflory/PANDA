@@ -6,14 +6,16 @@
 
 int binomialCoefficient(int n, int k);
 
-int monomialToIndex(int degree, int arity, std::vector<unsigned int>& values);
+int monomialToIndex(int degree, unsigned int arity, std::vector<unsigned int> &values);
 
 std::vector<unsigned int> indexToMonomial(int degree, int arity, int index);
 
-template<typename T>
-T squareAndMultiply(T base, unsigned int exponent) {
+template <typename T>
+T squareAndMultiply(T base, unsigned int exponent)
+{
     T res = 1;
-    while (exponent > 0) {
+    while (exponent > 0)
+    {
         if (exponent & 1)
             res *= base;
         else
