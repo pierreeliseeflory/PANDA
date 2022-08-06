@@ -1,0 +1,23 @@
+# Configuration file for EditorConfig
+# More information is available under http://EditorConfig.org
+
+# Ignore any other files further up in the file system
+root = true
+
+# Configuration for all files
+[*]
+# Enforce Unix style line endings (\n only)
+end_of_line = lf
+# Always end files with a blank line
+insert_final_newline = true
+# Force space characters for indentation
+indent_style = space
+# Always indent by 4 characters
+indent_size = 4
+# Remove whitespace characters at the end of line
+trim_trailing_whitespace = true
+
+[*.{c++,cc,cpp,cxx,h,h++,hh,hpp,hxx,inl,ipp,tlh,tli}]
+
+cpp_indent_case_contents_when_block = true
+cpp_new_line_before_open_brace_namespace = same_line

@@ -6,15 +6,19 @@
 
 ## Usage
 
+### Run
+
 ```shell
 bazel run @PANDA//src/polynomial:polynomial
 ```
 
-## Locally Decodable Codes - Reed-Muller
+### Test
 
-- evaluation vectors of multivariate polynomials over the binary field F2
-- information bits stored in the polynomial coefficients to the polynomial evaluation vector
-- polynomial ring F2[x1,x2,...,xm] with m variables
-- f ∈ F2[x1,x2,...,xm] and a binary vector z = (z1,z2,...,zm) ∈ Fm2 , let Evalz(f) := f(z1,z2,...,zm)
-- Eval(f) := (Evalz(f) : z ∈ Fm2 )
-- Reed-Muller codes with parameters m and r consist of all the evaluation vectors of polynomials with m variables and degree no larger than r.
+```shell
+bazel test --test_output=all ...
+```
+
+## References
+
+- Reed-Muller Scheme : Canetti, R., Holmgren, J., Richelson, S. (2017). Towards Doubly Efficient Private Information Retrieval. In: Kalai, Y., Reyzin, L. (eds) Theory of Cryptography. TCC 2017. Lecture Notes in Computer Science(), vol 10678. Springer, Cham. https://doi.org/10.1007/978-3-319-70503-3_23 (Sec. 4.2)
+- Low Degree Extension : J. Holmgren and R. Rothblum, "Delegating Computations with (Almost) Minimal Time and Space Overhead," 2018 IEEE 59th Annual Symposium on Foundations of Computer Science (FOCS), 2018, pp. 124-135, doi: 10.1109/FOCS.2018.00021. (Fact 3.4.)

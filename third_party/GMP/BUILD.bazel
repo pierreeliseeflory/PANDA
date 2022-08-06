@@ -1,16 +1,6 @@
-load("@bazel_skylib//rules:build_test.bzl", "build_test")
-
 exports_files(
     [
         "BUILD.gmp.bazel",
     ],
     visibility = ["//visibility:public"],
-)
-
-build_test(
-    name = "gmp_build_test",
-    targets = [
-        "@GMP_lib//:gmp",
-    ],
-    visibility = ["//:__pkg__"],
 )

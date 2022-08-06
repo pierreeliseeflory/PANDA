@@ -1,8 +1,8 @@
 cc_library(
-    name = "polynomial",
+    name = "reed-muller",
     srcs = [
-        "polynomial.cc",
-        "polynomial.hpp",
+        "reed-muller.cc",
+        "reed-muller.hpp",
     ],
     copts = [
         "-std=c++11",
@@ -10,18 +10,9 @@ cc_library(
     linkopts = ["-lpthread"],
     visibility = ["//visibility:public"],
     deps = [
+        "//src/polynomial",
         "//src/utils:math",
         "@GMP_lib//:gmp",
         "@NTL_lib//:ntl",
-    ],
-)
-
-cc_binary(
-    name = "main",
-    srcs = [
-        "main.cc",
-    ],
-    deps = [
-        "polynomial",
     ],
 )

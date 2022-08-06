@@ -4,60 +4,88 @@
 #include <iostream>
 #include <vector>
 #include <math.h>
-
 #include <NTL/ZZ_p.h>
 
-int binomialCoefficient(int n, int k);
+#include "src/utils/math.hpp"
+
+// TODO : REFACTOR -> use recursive polynomials
+// TODO : Templatize the class
+
+typedef std::vector<unsigned int> monomial;
 
 class MultiVariatePolynomial
 {
 public:
-    MultiVariatePolynomial(int arity, int degree, int order) : arity(arity), degree(degree), order(order), maxNbElements(binomialCoefficient(degree + arity, degree)), coefficients(maxNbElements)
+    MultiVariatePolynomial(unsigned int arity, unsigned int degree, unsigned int order) : arity(arity), degree(degree), order(order), maxNbElements(binomialCoefficient(degree + arity, degree)), coefficients(maxNbElements)
     {
         NTL::ZZ p((long)order);
         NTL::ZZ_p::init(p);
     }
+    MultiVariatePolynomial(unsigned int arity, unsigned int degree, unsigned int order, std::vector<NTL::ZZ_p> values) : MultiVariatePolynomial(arity, degree, order)
+    {
+        if (values.size() != this->getMaxNbElements())
+            throw std::invalid_argument("Incorrect number of values provided");
+        coefficients = values;
+    }
     MultiVariatePolynomial() = delete;
 
-    int getArity()
+    unsigned int getArity() const
     {
         return this->arity;
     };
-    void setArity(int arity)
+    void setArity(unsigned int arity)
     {
         this->arity = arity;
     };
-    int getDegree()
+    unsigned int getDegree() const
     {
         return this->degree;
     };
-    void setDegree(int degree)
+    void setDegree(unsigned int degree)
     {
         this->degree = degree;
     };
-    int getOrder()
+    unsigned int getOrder() const
     {
         return this->order;
     };
-    void setOrder(int order)
+    void setOrder(unsigned int order)
     {
         this->order = order;
     };
 
-    int getMaxNbElements()
+    unsigned int getMaxNbElements() const
     {
         return this->maxNbElements;
-    }
+    };
 
-    void print();
+    void setElement(std::vector<unsigned int>& monomial, NTL::ZZ_p value);
 
-    std::string to_string();
+    void setElement(unsigned int index, NTL::ZZ_p value);
+
+    NTL::ZZ_p getElement(std::vector<unsigned int>& monomial) const;
+
+    NTL::ZZ_p getElement(unsigned int index) const;
+
+    void print() const;
+
+    std::string to_string() const;
+
+    MultiVariatePolynomial add(const MultiVariatePolynomial& other) const;
+    MultiVariatePolynomial operator+(const MultiVariatePolynomial& other) const;
+
+    MultiVariatePolynomial sub(const MultiVariatePolynomial& other) const;
+    MultiVariatePolynomial operator-(const MultiVariatePolynomial& other) const;
+
+    NTL::ZZ_p evaluate(std::vector<NTL::ZZ_p>& point) const;
+
+    static MultiVariatePolynomial interpolate(std::vector<std::vector<NTL::ZZ_p>>& known_values, int degree, int arity, int order);
 
 private:
-    int arity;
-    int degree;
-    int order;
-    int maxNbElements;
+    unsigned int arity;
+    unsigned int degree;
+    unsigned int order;
+    unsigned int maxNbElements;
     std::vector<NTL::ZZ_p> coefficients;
 
     int getPowers(int index);

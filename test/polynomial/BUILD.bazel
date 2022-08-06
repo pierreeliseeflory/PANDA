@@ -1,0 +1,11 @@
+cc_test(
+    name = "polynomial_test",
+    size = "small",
+    srcs = [
+        "polynomial_test.cc",
+    ],
+    deps = [
+        "//src/polynomial",
+        "@com_google_googletest//:gtest_main",
+    ],
+)
