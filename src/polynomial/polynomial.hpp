@@ -59,6 +59,8 @@ private:
     int order;
     int maxNbElements;
     std::vector<NTL::ZZ_p> coefficients;
+
+    int getPowers(int index);
 };
 
 #endif // __POLYNOMIAL_H__

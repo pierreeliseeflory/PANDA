@@ -11,6 +11,15 @@ void MultiVariatePolynomial::print()
     std::cout << std::endl;
 }
 
+int MultiVariatePolynomial::getPowers(int index)
+{
+    std::stringstream ss;
+    for (int var = 0; var < this->getArity(); var++)
+    {
+    }
+    return 1;
+}
+
 std::string MultiVariatePolynomial::to_string()
 {
     std::vector<NTL::ZZ_p> param(this->getArity());
